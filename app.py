@@ -196,6 +196,8 @@ def init_db():
     connection.commit()
     connection.close()
 
+    
+
 
 # ==========================================
 # 4. USER AUTHENTICATION DECORATOR
@@ -1083,7 +1085,4 @@ def file_too_large(error):
 # ==========================================
 
 if __name__ == "__main__":
-
-    init_db()
-
     app.run(debug=True)
