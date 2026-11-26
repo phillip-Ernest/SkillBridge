@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | SkillBridge{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+    <h2>Welcome to Your SkillBridge Dashboard</h2>
+
+    <p>
+        Your journey towards professional growth and employment opportunities
+        starts here.
+    </p>
+
+    <div class="container">
+
+        <div class="card">
+            <h3>My Professional Profile</h3>
+            <p>Manage your qualifications, professional experience and personal information.</p>
+            <a href="{{ url_for('profile') }}" class="btn">View Profile</a>
+        </div>
+
+        <div class="card">
+            <h3>Skills Validation</h3>
+            <p>Demonstrate your competencies and identify skills development opportunities.</p>
+            <a href="{{ url_for('skills') }}" class="btn">Explore Skills</a>
+        </div>
+
+        <div class="card">
+            <h3>Certificate Uploads</h3>
+            <p>Upload and manage your academic and professional certificates.</p>
+            <a href="{{ url_for('skills') }}" class="btn">Upload Certificates</a>
+        </div>
+
+        <div class="card">
+            <h3>Employment Opportunities</h3>
+            <p>Discover employment, internships, fellowships and remote work opportunities.</p>
+            <a href="{{ url_for('opportunities') }}" class="btn">Find Opportunities</a>
+        </div>
+
+        <div class="card">
+            <h3>Professional Mentorship</h3>
+            <p>Connect with experienced professionals and develop your career.</p>
+            <a href="{{ url_for('mentorship') }}" class="btn">Find Mentors</a>
+        </div>
+
+        <div class="card">
+            <h3>Career Progress</h3>
+            <p>Monitor your professional development and employment readiness.</p>
+            <a href="{{ url_for('progress') }}" class="btn">Track Progress</a>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

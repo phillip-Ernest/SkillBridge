@@ -1,0 +1,107 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Certificate Verification History | SkillBridge
+{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>Certificate Verification History</h2>
+
+    <p>
+        Review previous administrator decisions
+        on submitted qualifications.
+    </p>
+
+    {% if history %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Certificate</th>
+                    <th>Institution</th>
+                    <th>Applicant</th>
+                    <th>Administrator</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for record in history %}
+
+                <tr>
+
+                    <td>
+                        {{ record.qualification_name }}
+                    </td>
+
+                    <td>
+                        {{ record.institution }}
+                    </td>
+
+                    <td>
+                        {{ record.applicant_name }}
+                    </td>
+
+                    <td>
+                        {{ record.admin_name }}
+                    </td>
+
+                    <td>
+
+                        {% if record.verification_status == "Verified" %}
+
+                            <span class="badge verified">
+                                Verified
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge rejected">
+                                Rejected
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+                        {{ record.decided_at }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+        <p>No certificate verification history is available yet.</p>
+
+    {% endif %}
+
+    <a href="{{ url_for('admin_certificates') }}" class="btn">
+        Back to Certificates
+    </a>
+
+    <a href="{{ url_for('certificate_verification_history') }}"
+   class="btn">
+    View Verification History
+    </a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Professional Mentorship | SkillBridge{% endblock %}
+
+{% block content %}
+
+<section>
+
+    <h2>Professional Mentorship & Networks</h2>
+
+    <p>
+        Connect with experienced professionals who can guide you
+        towards career development and employment opportunities.
+    </p>
+
+    <div class="container">
+
+        <div class="card">
+            <h3>Career Mentorship</h3>
+            <p>Receive professional guidance and advice from experienced mentors.</p>
+        </div>
+
+        <div class="card">
+            <h3>Professional Networking</h3>
+            <p>Build meaningful relationships with industry professionals and employers.</p>
+        </div>
+
+        <div class="card">
+            <h3>Career Development</h3>
+            <p>Improve workplace readiness, communication and professional skills.</p>
+        </div>
+
+        <div class="card">
+            <h3>Fellowships & Returnships</h3>
+            <p>Discover structured opportunities to gain practical local experience.</p>
+        </div>
+
+    </div>
+
+    <div class="form-container">
+
+        <h3>Request a Mentor</h3>
+
+        <form method="POST" action="{{ url_for('mentorship') }}">
+
+            <label>Full Name</label>
+            <input type="text" name="full_name" placeholder="Enter your full name" required>
+
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+
+            <label>Professional Field</label>
+            <input type="text" name="professional_field" placeholder="e.g. Information Technology" required>
+
+            <label>Area Where You Need Mentorship</label>
+
+            <select name="mentorship_area" required>
+                <option value="">Select mentorship area</option>
+                <option value="Career Development">Career Development</option>
+                <option value="Technical Skills">Technical Skills</option>
+                <option value="Entrepreneurship">Entrepreneurship</option>
+                <option value="Professional Networking">Professional Networking</option>
+                <option value="Employment Preparation">Employment Preparation</option>
+            </select>
+
+            <label>Explain Your Mentorship Needs</label>
+            <textarea name="message" rows="5" placeholder="Describe the guidance you need"></textarea>
+
+            <button type="submit" class="btn">Submit Mentorship Request</button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

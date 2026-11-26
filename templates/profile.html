@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Professional Profile | SkillBridge{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>My Professional Profile</h2>
+
+    <p>Present your qualifications, skills and professional experience.</p>
+
+    <form method="POST" action="{{ url_for('profile') }}">
+
+        <label>Full Name</label>
+        <input type="text" name="full_name"
+               value="{{ user.full_name if user else '' }}" required>
+
+        <label>Professional Field</label>
+        <input type="text" name="professional_field"
+               value="{{ user.professional_field if user else '' }}">
+
+        <label>Highest Qualification</label>
+        <input type="text" name="qualification"
+               value="{{ user.qualification if user else '' }}">
+
+        <label>Professional Experience</label>
+        <textarea name="experience" rows="5">{{ user.experience or '' }}</textarea>
+
+        <label>Key Skills</label>
+        <textarea name="skills" rows="4">{{ user.skills or '' }}</textarea>
+
+        <label>Career Goals</label>
+        <textarea name="career_goals" rows="4">{{ user.career_goals or '' }}</textarea>
+
+        <button type="submit" class="btn">Save Profile</button>
+
+    </form>
+
+    <hr>
+
+    <h2>My Uploaded Certificates</h2>
+
+    {% if qualifications %}
+
+        {% for certificate in qualifications %}
+
+            <div class="card">
+
+                <h3>{{ certificate.qualification_name }}</h3>
+
+
+<!-- CERTIFICATE VERIFICATION BADGE -->
+
+<p>
+    <strong>Verification Status:</strong>
+
+    {% if qualification.verification_status == "Verified" %}
+
+        <span class="badge verified">
+            ✓ Verified
+        </span>
+
+    {% elif qualification.verification_status == "Rejected" %}
+
+        <span class="badge rejected">
+            ✗ Rejected
+        </span>
+
+    {% else %}
+
+        <span class="badge pending">
+            ⏳ Pending Verification
+        </span>
+
+    {% endif %}
+</p>
+
+
+                <p>
+                    <strong>Institution:</strong>
+                    {{ certificate.institution }}
+                </p>
+
+                <p>
+                    <strong>Year Obtained:</strong>
+                    {{ certificate.year_obtained }}
+                </p>
+
+                <p>
+                    <strong>Verification Status:</strong>
+                    {{ certificate.verification_status }}
+                </p>
+
+                <a href="{{ url_for('view_certificate',
+                    qualification_id=certificate.id) }}"
+                   class="btn">
+                    Download Certificate
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>You have not uploaded any certificates yet.</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

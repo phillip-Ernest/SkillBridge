@@ -1,0 +1,22 @@
+﻿# Python virtual environment
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Environment variables and secrets
+.env
+.env.*
+
+# SQLite databases and backups
+instance/*.db*
+*.bak
+
+# User-uploaded files
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Testing and temporary files
+.pytest_cache/
+.mypy_cache/

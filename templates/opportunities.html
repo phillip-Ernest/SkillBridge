@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Employment Opportunities | SkillBridge{% endblock %}
+
+{% block content %}
+
+<section>
+
+    <h2>Employment & Career Opportunities</h2>
+
+    <p>
+        Discover employment opportunities, internships, fellowships,
+        returnships and remote work opportunities.
+    </p>
+
+    <div class="container">
+
+        <div class="card">
+            <h3>Information Technology</h3>
+            <p>Explore software development, data analysis, cybersecurity and IT support opportunities.</p>
+            <strong>Career Field: Technology</strong>
+        </div>
+
+        <div class="card">
+            <h3>Healthcare</h3>
+            <p>Discover healthcare-related opportunities and professional development pathways.</p>
+            <strong>Career Field: Healthcare</strong>
+        </div>
+
+        <div class="card">
+            <h3>Education</h3>
+            <p>Explore teaching, training, research and educational support opportunities.</p>
+            <strong>Career Field: Education</strong>
+        </div>
+
+        <div class="card">
+            <h3>Engineering</h3>
+            <p>Discover technical, construction and engineering-related opportunities.</p>
+            <strong>Career Field: Engineering</strong>
+        </div>
+
+        <div class="card">
+            <h3>Business & Entrepreneurship</h3>
+            <p>Explore business development, finance, administration and entrepreneurship.</p>
+            <strong>Career Field: Business</strong>
+        </div>
+
+        <div class="card">
+            <h3>Remote Work</h3>
+            <p>Connect your professional skills with global remote employment opportunities.</p>
+            <strong>Career Field: Remote Work</strong>
+        </div>
+
+    </div>
+
+    <div class="form-container">
+
+        <h3>Search for Opportunities</h3>
+
+        <form method="GET" action="{{ url_for('opportunities') }}">
+
+            <label>Professional Field</label>
+
+            <select name="field">
+                <option value="">All Fields</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Education">Education</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Business">Business</option>
+                <option value="Remote Work">Remote Work</option>
+            </select>
+
+            <label>Opportunity Type</label>
+
+            <select name="type">
+                <option value="">All Types</option>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Internship">Internship</option>
+                <option value="Fellowship">Fellowship</option>
+                <option value="Remote">Remote</option>
+            </select>
+
+            <button type="submit" class="btn">Search Opportunities</button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

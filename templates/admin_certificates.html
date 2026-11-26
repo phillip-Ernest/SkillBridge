@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+
+{% block title %}Certificate Administration | SkillBridge{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>Certificate Verification Dashboard</h2>
+
+    <p>
+        Review qualifications submitted by SkillBridge members.
+    </p>
+
+    <!-- CERTIFICATE SEARCH AND FILTER -->
+
+    <div class="certificate-search">
+
+        <form method="GET"
+              action="{{ url_for('admin_certificates') }}">
+
+            <div class="search-field">
+
+                <label for="certificate-search">
+                    Search Certificates
+                </label>
+
+                <input
+                    type="text"
+                    id="certificate-search"
+                    name="q"
+                    value="{{ search_query }}"
+                    placeholder="Name, email, qualification or institution"
+                >
+
+            </div>
+
+            <div class="search-field">
+
+                <label for="certificate-status">
+                    Verification Status
+                </label>
+
+                <select id="certificate-status" name="status">
+
+                    <option value=""
+                        {% if not status_filter %}selected{% endif %}>
+                        All Statuses
+                    </option>
+
+                    <option value="Pending"
+                        {% if status_filter == "Pending" %}selected{% endif %}>
+                        Pending
+                    </option>
+
+                    <option value="Verified"
+                        {% if status_filter == "Verified" %}selected{% endif %}>
+                        Verified
+                    </option>
+
+                    <option value="Rejected"
+                        {% if status_filter == "Rejected" %}selected{% endif %}>
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="search-actions">
+
+                <button type="submit" class="btn">
+                    Search / Filter
+                </button>
+
+                <a href="{{ url_for('admin_certificates') }}"
+                   class="btn">
+                    Clear Filters
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- CERTIFICATE STATISTICS -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <h3>Total Certificates</h3>
+            <p>{{ statistics.total }}</p>
+        </div>
+
+        <div class="stat-card pending">
+            <h3>Pending Certificates</h3>
+            <p>{{ statistics.pending }}</p>
+        </div>
+
+        <div class="stat-card verified">
+            <h3>Verified Certificates</h3>
+            <p>{{ statistics.verified }}</p>
+        </div>
+
+        <div class="stat-card rejected">
+            <h3>Rejected Certificates</h3>
+            <p>{{ statistics.rejected }}</p>
+        </div>
+
+    </div>
+
+
+    <!-- CERTIFICATE REVIEW LIST -->
+
+    <h2>Submitted Certificates</h2>
+
+    {% if qualifications %}
+
+        {% for certificate in qualifications %}
+
+            <div class="card">
+
+                <h3>{{ certificate.qualification_name }}</h3>
+
+                <p>
+                    <strong>Candidate:</strong>
+                    {{ certificate.full_name }}
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    {{ certificate.email }}
+                </p>
+
+                <p>
+                    <strong>Institution:</strong>
+                    {{ certificate.institution }}
+                </p>
+
+                <p>
+                    <strong>Year Obtained:</strong>
+                    {{ certificate.year_obtained }}
+                </p>
+
+                <p>
+                    <strong>Verification Status:</strong>
+
+                    {% if certificate.verification_status == "Verified" %}
+
+                        <span class="status verified">
+                            Verified
+                        </span>
+
+                    {% elif certificate.verification_status == "Rejected" %}
+
+                        <span class="status rejected">
+                            Rejected
+                        </span>
+
+                    {% else %}
+
+                        <span class="status pending">
+                            Pending
+                        </span>
+
+                    {% endif %}
+
+                </p>
+
+
+                <!-- DOWNLOAD CERTIFICATE -->
+
+                <p>
+                    <a href="{{ url_for(
+                        'admin_view_certificate',
+                        qualification_id=certificate.id
+                    ) }}" class="btn">
+                        Download Certificate
+                    </a>
+                </p>
+
+
+                <!-- PREVIOUS REVIEW INFORMATION -->
+
+                {% if certificate.reviewed_at %}
+
+                    <div class="review-information">
+
+                        <h4>Previous Review</h4>
+
+                        <p>
+                            <strong>Reviewed on:</strong>
+                            {{ certificate.reviewed_at }}
+                        </p>
+
+                        <p>
+                            <strong>Administrator Notes:</strong>
+                            {{ certificate.reviewer_notes or "No notes provided." }}
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- ADMINISTRATOR REVIEW FORM -->
+
+                <div class="certificate-review">
+
+                    <h4>Administrator Credential Review</h4>
+
+                    <form method="POST"
+                          action="{{ url_for(
+                              'update_certificate_status',
+                              qualification_id=certificate.id
+                          ) }}">
+
+                        <div class="form-group">
+
+                            <label for="reviewer-notes-{{ certificate.id }}">
+                                Review Notes / Feedback
+                            </label>
+
+                            <textarea
+                                id="reviewer-notes-{{ certificate.id }}"
+                                name="reviewer_notes"
+                                rows="4"
+                                placeholder="Enter feedback, verification findings or rejection reason..."
+                            ></textarea>
+
+                        </div>
+
+                        <div class="review-actions">
+
+                            <button
+                                type="submit"
+                                name="verification_status"
+                                value="Verified"
+                                class="btn">
+                                Verify Certificate
+                            </button>
+
+                            <button
+                                type="submit"
+                                name="verification_status"
+                                value="Rejected"
+                                class="btn">
+                                Reject Certificate
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No certificates match your search or filter.</p>
+
+    {% endif %}
+
+    <p>
+        <a href="{{ url_for('certificate_verification_history') }}"
+           class="btn">
+            View Verification History
+        </a>
+    </p>
+
+</div>
+
+{% endblock %}

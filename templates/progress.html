@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Career Progress | SkillBridge{% endblock %}
+
+{% block content %}
+
+<section>
+
+    <h2>My Career Progress</h2>
+
+    <p>
+        Monitor your professional development, skills validation
+        and progress towards employment opportunities.
+    </p>
+
+    <div class="container">
+
+        <div class="card">
+            <h3>Profile Completion</h3>
+            <p>Keep your professional information updated.</p>
+            <strong>{{ profile_completion if profile_completion is defined else 0 }}%</strong>
+        </div>
+
+        <div class="card">
+            <h3>Skills Development</h3>
+            <p>Track your skills assessments and learning activities.</p>
+            <strong>{{ skills_completed if skills_completed is defined else 0 }} completed</strong>
+        </div>
+
+        <div class="card">
+            <h3>Qualifications</h3>
+            <p>Monitor your submitted qualifications.</p>
+            <strong>{{ qualifications_count if qualifications_count is defined else 0 }} submitted</strong>
+        </div>
+
+        <div class="card">
+            <h3>Mentorship</h3>
+            <p>Track your mentorship requests.</p>
+            <strong>{{ mentorship_count if mentorship_count is defined else 0 }} requests</strong>
+        </div>
+
+    </div>
+
+    <div class="card" style="margin-top: 25px;">
+
+        <h3>Your Development Journey</h3>
+
+        <p>1. Register and create your professional profile.</p>
+
+        <p>2. Upload your academic and professional qualifications.</p>
+
+        <p>3. Demonstrate your professional competencies.</p>
+
+        <p>4. Access bridging courses and learning opportunities.</p>
+
+        <p>5. Connect with mentors and professional networks.</p>
+
+        <p>6. Apply for employment, internships and fellowships.</p>
+
+    </div>
+
+</section>
+
+{% endblock %}

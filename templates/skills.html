@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Skills Validation | SkillBridge{% endblock %}
+
+{% block content %}
+
+<section>
+
+    <h2>Credential Recognition & Skills Validation</h2>
+
+    <p>
+        Demonstrate your professional competencies and identify opportunities
+        for qualification recognition and further development.
+    </p>
+
+    <div class="container">
+
+        <div class="card">
+            <h3>Qualification Verification</h3>
+            <p>Provide information about your academic and professional qualifications.</p>
+        </div>
+
+        <div class="card">
+            <h3>Competency Assessment</h3>
+            <p>Demonstrate your practical knowledge and professional abilities.</p>
+        </div>
+
+        <div class="card">
+            <h3>Bridging Courses</h3>
+            <p>Identify additional learning and certification opportunities.</p>
+        </div>
+
+    </div>
+
+    <div class="form-container">
+
+        <h3>Submit Your Qualification</h3>
+
+        <form method="POST" action="{{ url_for('skills') }}" enctype="multipart/form-data">
+
+            <label>Qualification Name</label>
+            <input type="text" name="qualification_name" required>
+
+            <label>Institution</label>
+            <input type="text" name="institution" required>
+
+            <label>Year Obtained</label>
+            <input type="number" name="year_obtained" min="1950" max="2100" required>
+
+            <label>Upload Certificate (PDF)</label>
+            <input type="file" name="certificate" accept=".pdf" required>
+
+            <button type="submit" class="btn">Submit Qualification</button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
