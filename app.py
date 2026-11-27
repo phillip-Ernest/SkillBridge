@@ -59,6 +59,9 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
+# Allowed certificate file types
+ALLOWED_EXTENSIONS = {"pdf"}
+
 # Maximum upload size: 5 MB
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 

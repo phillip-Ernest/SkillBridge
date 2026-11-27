@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,73 +8,132 @@
 </head>
 <body>
 
-    <header>
+<header class="main-header">
+    <div class="logo">
         <h1>SkillBridge</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="#about">About</a>
-            <a href="#tracks">Our Tracks</a>
-            <a href="#opportunities">Opportunities</a>
-        </nav>
-    </header>
+        <p>Unlocking Displaced Talent</p>
+    </div>
 
-    <section class="hero">
-        <h2>Unlocking Displaced Talent</h2>
-        <h3>Pathways for Skilled Refugees</h3>
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('profile') }}">Professional Profile</a>
+        <a href="{{ url_for('skills') }}">Skills</a>
+        <a href="{{ url_for('opportunities') }}">Opportunities</a>
+        <a href="{{ url_for('mentorship') }}">Mentorship</a>
+        <a href="{{ url_for('progress') }}">Progress</a>
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('login') }}">Login</a>
+    </nav>
+</header>
 
-        <p>
-            Connecting skilled refugees with opportunities,
-            professional networks, skills validation and career development.
-        </p>
+<main>
 
-        <a href="#tracks" class="btn">Explore SkillBridge</a>
-    </section>
+<section class="hero">
+    <h2>Unlocking Displaced Talent</h2>
+    <h3>Pathways for Skilled Refugees</h3>
 
-    <section id="about">
-        <h2>About SkillBridge</h2>
-        <p>
-            Skilled refugees bring degrees, technical skills, and professional
-            experience that can strengthen teams and solve real-world problems.
-            SkillBridge helps address credential recognition, legal and financial
-            access, and local experience and professional networks.
-        </p>
-    </section>
+    <p>
+        Connecting skilled refugees with opportunities,
+        professional networks, skills validation and career development.
+    </p>
 
-    <section id="tracks">
-        <h2>Our Three Core Tracks</h2>
+    <a href="{{ url_for('register') }}" class="btn">Get Started</a>
+</section>
 
-        <div class="container">
+<section id="about">
+    <h2>About SkillBridge</h2>
+    <p>
+        Skilled refugees bring degrees, technical skills and professional
+        experience that can strengthen teams and solve real-world problems.
+        SkillBridge addresses credential recognition, legal and financial
+        access, and local experience and professional networks.
+    </p>
+</section>
 
-            <div class="card">
-                <h3>1. Credential Recognition & Skills Validation</h3>
-                <p>Verify qualifications, assess competencies and access bridging courses.</p>
-                <strong>SDGs 4 & 8</strong>
-            </div>
+<section id="tracks">
+    <h2>Our Three Core Tracks</h2>
 
-            <div class="card">
-                <h3>2. Legal, Regulatory & Financial Access</h3>
-                <p>Access work authorization information, employer compliance and financial guidance.</p>
-                <strong>SDGs 8, 10 & 16</strong>
-            </div>
-
-            <div class="card">
-                <h3>3. Local Experience & Professional Networks</h3>
-                <p>Connect with mentors, employers, fellowships and professional networks.</p>
-                <strong>SDGs 8, 10 & 17</strong>
-            </div>
-
+    <div class="container">
+        <div class="card">
+            <h3>1. Credential Recognition & Skills Validation</h3>
+            <p>Verify qualifications, assess competencies and access bridging courses.</p>
+            <strong>SDGs 4 & 8</strong>
         </div>
-    </section>
 
-    <section id="opportunities">
-        <h2>Build Your Future With SkillBridge</h2>
-        <p>Discover opportunities to demonstrate your skills and grow your career.</p>
-    </section>
+        <div class="card">
+            <h3>2. Legal, Regulatory & Financial Access</h3>
+            <p>Access work authorization information, employer compliance and financial guidance.</p>
+            <strong>SDGs 8, 10 & 16</strong>
+        </div>
 
-    <footer>
-        <p>SkillBridge | Unlocking Displaced Talent</p>
-        <p>Supporting SDGs 4, 8, 10, 16 and 17</p>
-    </footer>
+        <div class="card">
+            <h3>3. Local Experience & Professional Networks</h3>
+            <p>Connect with mentors, employers, fellowships and professional networks.</p>
+            <strong>SDGs 8, 10 & 17</strong>
+        </div>
+    </div>
+</section>
+
+<section id="programs">
+    <h2>Explore SkillBridge Programs</h2>
+    <p>Access the different areas of the SkillBridge platform.</p>
+
+    <div class="container">
+
+        <div class="card">
+            <h3>Professional Dashboard</h3>
+            <p>View your personal career development overview.</p>
+            <a href="{{ url_for('dashboard') }}" class="btn">Open Dashboard</a>
+        </div>
+
+        <div class="card">
+            <h3>Professional Profile</h3>
+            <p>Manage your qualifications, experience and career information.</p>
+            <a href="{{ url_for('profile') }}" class="btn">View Profile</a>
+        </div>
+
+        <div class="card">
+            <h3>Skills Validation</h3>
+            <p>Present your professional skills and competencies.</p>
+            <a href="{{ url_for('skills') }}" class="btn">Explore Skills</a>
+        </div>
+
+        <div class="card">
+            <h3>Employment Opportunities</h3>
+            <p>Explore opportunities to apply your professional expertise.</p>
+            <a href="{{ url_for('opportunities') }}" class="btn">View Opportunities</a>
+        </div>
+
+        <div class="card">
+            <h3>Professional Mentorship</h3>
+            <p>Build professional connections and request mentorship.</p>
+            <a href="{{ url_for('mentorship') }}" class="btn">Explore Mentorship</a>
+        </div>
+
+        <div class="card">
+            <h3>Career Progress</h3>
+            <p>Monitor your career development activities.</p>
+            <a href="{{ url_for('progress') }}" class="btn">View Progress</a>
+        </div>
+
+    </div>
+</section>
+
+<section id="opportunities">
+    <h2>Build Your Future With SkillBridge</h2>
+    <p>Discover opportunities to demonstrate your skills and grow your career.</p>
+    <a href="{{ url_for('register') }}" class="btn">Join SkillBridge</a>
+</section>
+
+</main>
+
+<footer class="main-footer">
+    <h3>SkillBridge</h3>
+    <p>Pathways for Skilled Refugees</p>
+    <p>Supporting SDGs 4, 8, 10, 16 and 17</p>
+    <p>&copy; 2026 SkillBridge. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
