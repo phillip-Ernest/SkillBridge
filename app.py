@@ -16,36 +16,67 @@ from werkzeug.utils import secure_filename
 # 1. FLASK APPLICATION CONFIGURATION
 # ==========================================
 
+
+
 app = Flask(__name__)
 
-app.config["SECRET_KEY"] = os.environ.get(
-    "SECRET_KEY", "skillbridge-development-key-change-before-deployment"
+APP_ENV = os.environ.get("APP_ENV", "development").lower()
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+if APP_ENV == "production" and not SECRET_KEY:
+    raise RuntimeError(
+        "SECRET_KEY must be configured before production deployment."
+    )
+
+app.config["SECRET_KEY"] = SECRET_KEY or (
+    "skillbridge-development-key-change-before-deployment"
 )
 
-app.config["DATABASE"] = os.path.join(
-    app.instance_path, "skillbridge.db"
+
+# ==========================================
+# DATABASE AND FILE STORAGE CONFIGURATION
+# ==========================================
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# Database storage
+DATABASE_PATH = os.environ.get(
+    "DATABASE_PATH",
+    os.path.join(app.instance_path, "skillbridge.db")
 )
 
-app.config["UPLOAD_FOLDER"] = os.path.join(
-    app.root_path, "static", "uploads"
+os.makedirs(os.path.dirname(os.path.abspath(DATABASE_PATH)), exist_ok=True)
+
+app.config["DATABASE"] = DATABASE_PATH
+
+# Certificate upload storage
+UPLOAD_FOLDER = os.environ.get(
+    "UPLOAD_FOLDER",
+    os.path.join(BASE_DIR, "static", "uploads")
 )
 
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+# Maximum upload size: 5 MB
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
-
-ALLOWED_EXTENSIONS = {"pdf"}
-
-os.makedirs(app.instance_path, exist_ok=True)
-os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 
 # ==========================================
 # 2. DATABASE CONNECTION
 # ==========================================
 
+
 def get_db():
     connection = sqlite3.connect(app.config["DATABASE"])
     connection.row_factory = sqlite3.Row
+
+    # Enforce database foreign-key relationships
+    connection.execute("PRAGMA foreign_keys = ON")
+
     return connection
+
 
 
 # ==========================================
@@ -196,7 +227,8 @@ def init_db():
     connection.commit()
     connection.close()
 
-    
+ # Initialize database tables when the application starts
+init_db()   
 
 
 # ==========================================
@@ -761,8 +793,7 @@ def certificate_verification_history():
     history = connection.execute("""
         SELECT
             certificate_verification_history.id,
-            certificate_verif
-            ication_history.qualification_id,
+            certificate_verification_history.qualification_id,
             certificate_verification_history.verification_status,
             certificate_verification_history.decided_at,
 
